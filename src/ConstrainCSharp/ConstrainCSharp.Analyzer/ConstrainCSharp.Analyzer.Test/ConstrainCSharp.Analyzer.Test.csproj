@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\ConstrainCSharp\ConstrainCSharp.csproj" />
     <ProjectReference Include="..\ConstrainCSharp.Analyzer.CodeFixes\ConstrainCSharp.Analyzer.CodeFixes.csproj" />
     <ProjectReference Include="..\ConstrainCSharp.Analyzer\ConstrainCSharp.Analyzer.csproj" />
   </ItemGroup>
