@@ -19,12 +19,6 @@ namespace ConstrainCSharp.Analyzer.Test {
         public async Task
             OnlyOneAssignmentStatementInPrivateField_NoDiagnostic() {
             var test = @"
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Diagnostics;
     using ConstrainCSharp.Attributes;
 
     namespace TestConstrainCSharp {
