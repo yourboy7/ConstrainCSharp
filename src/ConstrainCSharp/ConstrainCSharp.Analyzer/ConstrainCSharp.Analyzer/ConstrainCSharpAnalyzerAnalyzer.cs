@@ -52,7 +52,18 @@ namespace ConstrainCSharp.Analyzer {
             context.EnableConcurrentExecution();
 
             context.RegisterSyntaxNodeAction(AnalyzeNode,
-                SyntaxKind.SimpleAssignmentExpression);
+                SyntaxKind.SimpleAssignmentExpression,
+                SyntaxKind.AddAssignmentExpression,
+                SyntaxKind.SubtractAssignmentExpression,
+                SyntaxKind.MultiplyAssignmentExpression,
+                SyntaxKind.DivideAssignmentExpression,
+                SyntaxKind.ModuloAssignmentExpression,
+                SyntaxKind.AndAssignmentExpression,
+                SyntaxKind.ExclusiveOrAssignmentExpression,
+                SyntaxKind.OrAssignmentExpression,
+                SyntaxKind.LeftShiftAssignmentExpression,
+                SyntaxKind.RightShiftAssignmentExpression,
+                SyntaxKind.CoalesceAssignmentExpression);
         }
 
         private void AnalyzeNode(SyntaxNodeAnalysisContext context) {
@@ -91,7 +102,6 @@ namespace ConstrainCSharp.Analyzer {
             // 计算目标局部变量赋值次数
             var localVariableAssignedCount = rootNode.DescendantNodes()
                 .OfType<AssignmentExpressionSyntax>()
-                .Where(a => a.IsKind(SyntaxKind.SimpleAssignmentExpression))
                 .Count(a =>
                     ((IdentifierNameSyntax)a.Left).Identifier.ValueText ==
                     localVariableName);
@@ -103,7 +113,8 @@ namespace ConstrainCSharp.Analyzer {
             // 当总赋值次数超过一次则报告错误
             if (totalAssignedCount > 1)
                 context.ReportDiagnostic(Diagnostic.Create(Rule,
-                    assignmentExpressionSyntaxNode.GetLocation(), localVariableName));
+                    assignmentExpressionSyntaxNode.GetLocation(),
+                    localVariableName));
         }
     }
 }

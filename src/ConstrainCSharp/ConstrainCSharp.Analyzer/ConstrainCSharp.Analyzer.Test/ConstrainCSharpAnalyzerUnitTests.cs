@@ -121,5 +121,45 @@ namespace ConstrainCSharp.Analyzer.Test {
                 }
             }.RunAsync();
         }
+
+        /// <summary>
+        /// Verify that diagnostics are triggered when there are multiple assignment statements (+=)
+        /// 验证当存在多条赋值语句时会触发诊断 (+=)
+        /// </summary>
+        [TestMethod]
+        public async Task MultipleAddAssignmentStatements_Diagnostic()
+        {
+            var test = @"
+    using ConstrainCSharp.Attributes;
+
+    namespace TestConstrainCSharp {
+
+        public class Boy {
+            [OnlyOneAssignmentStatement] 
+            private int _age = 11;
+
+            public void SetAge(int age) {
+                {|#0:_age += age|};
+            }
+        }
+    }";
+            var expected = VerifyCS.Diagnostic("ConstrainCSharpAnalyzer")
+                .WithLocation(0).WithArguments("_age");
+            await new VerifyCS.Test
+            {
+                ReferenceAssemblies =
+                    new ReferenceAssemblies("net8.0",
+                        new PackageIdentity("Microsoft.NETCore.App.Ref",
+                            "8.0.0"), Path.Combine("ref", "net8.0")),
+                TestState = {
+                    Sources = { test },
+                    ExpectedDiagnostics = { expected },
+                    AdditionalReferences = {
+                        typeof(OnlyOneAssignmentStatementAttribute).Assembly
+                            .Location
+                    }
+                }
+            }.RunAsync();
+        }
     }
 }
