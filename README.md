@@ -1,4 +1,4 @@
-# ConstrainCSharp
+# ConstrainCSharp [![NuGet version (ConstrainCSharp)](https://img.shields.io/nuget/v/ConstrainCSharp.svg)](https://www.nuget.org/packages/ConstrainCSharp)
 This is a repository for constraining C# syntax so that C# can express clearer meaning and improve code readability and maintainability.
 
 # What is ConstrainCSharp?
