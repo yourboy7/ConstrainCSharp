@@ -40,3 +40,6 @@ namespace TestConstrainCSharp
     }
 }
 ```
+
+# Example 
+![example](.github/example.gif)
